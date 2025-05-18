@@ -6,36 +6,34 @@
 
 const searchRange = (nums, target) => {
     let left = 0;
-    let right = nums.length - 1;
-    let result = [-1, -1];
+    let right = nums.length - 1
+    let result = [-1, -1]
 
     while (left <= right) {
-        let mid = Math.floor((left + right) / 2);
+        let mid = Math.floor((left + right) / 2)
         if (nums[mid] === target) {
-            result = [mid, mid];
-
-            // 向左查找开始位置
+            // 先把结果暂存起来 
+            result = [mid, mid]
+            // 向左继续查找更小的
             let left = mid;
             while (left >= 0 && nums[left] === target) {
-                result[0] = left;
-                left--;
+                result[0] = left
+                left--
             }
-
-            // 向右查找结束位置
+            // 向右查找更大的 
             let right = mid;
             while (right < nums.length && nums[right] === target) {
-                result[1] = right;
-                right++;
+                result[1] = right
+                right++
             }
-
-            return result;
+            return result
         } else if (nums[mid] < target) {
             left = mid + 1;
         } else {
             right = mid - 1;
         }
-    }
 
-    return result;
-};
+    }
+    return result
+}
 
