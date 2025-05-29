@@ -53,11 +53,15 @@ export default function findMin(nums) {
 
         // 情况1：中间值大于右边界值，说明最小值一定在右半部分
         // 例如：[4,5,6,7,0,1,2]，mid=3, nums[mid]=7, nums[right]=2
+
+        // 如果 nums[mid] > nums[right]，说明最小值 一定在 mid 的右侧，mid 不可能是最小值 → 可以放心跳过它，执行 left = mid + 1
         if (nums[mid] > nums[right]) {
             left = mid + 1;
         }
         // 情况2：中间值小于右边界值，说明最小值在左半部分（包括mid）
         // 例如：[2,2,2,0,1], mid=2, nums[mid]=2, nums[right]=1
+
+        // 【误区】❗️如果你执行 right = mid + 1 = 4，就会错过 mid = 3 这个值。
         else if (nums[mid] < nums[right]) {
             right = mid;
         }
