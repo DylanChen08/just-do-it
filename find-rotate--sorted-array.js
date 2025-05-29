@@ -36,19 +36,39 @@ nums 原来是一个升序排序的数组，并进行了 1 至 n 次旋转
 
  */
 
+/**
+ * 寻找旋转排序数组中的最小值（允许重复元素）
+ * @param {number[]} nums - 输入的旋转排序数组，可能包含重复元素
+ * @return {number} - 返回数组中的最小值
+ */
 export default function findMin(nums) {
+    // 初始化左右指针，分别指向数组的首尾
     let left = 0;
     let right = nums.length - 1;
+
+    // 当左指针小于右指针时，继续二分查找
     while (left < right) {
+        // 取中间位置
         let mid = Math.floor((left + right) / 2);
+
+        // 情况1：中间值大于右边界值，说明最小值一定在右半部分
+        // 例如：[4,5,6,7,0,1,2]，mid=3, nums[mid]=7, nums[right]=2
         if (nums[mid] > nums[right]) {
             left = mid + 1;
-        } else if (nums[mid] < nums[right]) {
+        }
+        // 情况2：中间值小于右边界值，说明最小值在左半部分（包括mid）
+        // 例如：[2,2,2,0,1], mid=2, nums[mid]=2, nums[right]=1
+        else if (nums[mid] < nums[right]) {
             right = mid;
-        } else {
+        }
+        // 情况3：中间值等于右边界值，无法判断最小值在哪一侧
+        // 只能缩小右边界，去掉一个重复元素
+        // 例如：[2,2,2,0,1], mid=1, nums[mid]=2, nums[right]=2
+        else {
             right--;
         }
     }
+    // 循环结束后，left和right会重合，指向最小值
     return nums[left];
 }
 
