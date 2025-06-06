@@ -15,15 +15,32 @@ class LinkedList {
 
     // 获取指定位置的节点值
     get(index) {
+        // ✅ 第一步：边界检查
+        // 如果 index 小于 0，或者大于等于链表长度（即不存在这个位置）
+        // 则返回 null，表示无效访问
         if (index < 0 || index >= this.length) return null;
+    
+        // ✅ 第二步：定义 current 指针，用于从头节点开始遍历链表
+        // ⚠️ 注意：this.head 是链表的起点，也就是第 0 个节点
         let current = this.head;
+    
+        // ✅ 第三步：通过循环找到第 index 个节点
+        // 初始化一个计数器 i，从 0 开始
         let i = 0;
+    
+        // 当 i < index 时，就向后跳一个节点
+        // 每执行一次循环，相当于向后走一步（current = current.next）
         while (i < index) {
-            current = current.next;
-            i++;
+            current = current.next; // ⭐️ current 向后跳一个节点
+            i++;                    // 计数器加 1
         }
+    
+        // 循环结束时：i === index，current 指向我们要找的目标节点
+    
+        // ✅ 第四步：返回目标节点的值
         return current.value;
     }
+    
 
     // 在指定位置插入节点（支持在末尾插入）
     insert(index, value) {
