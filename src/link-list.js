@@ -146,6 +146,51 @@ class LinkedList {
         // 删除成功，返回 true
         return true;
     }
+
+
+    removeByValue(value) {
+        // ✅ 如果链表为空（head 为 null），那当然删除失败，直接返回 false
+        if (!this.head) return false;
+    
+        // ✅ 特殊情况：如果头节点就是要删除的值
+        if (this.head.value === value) {
+            // 删除的本质是“跳过”这个节点：
+            // 让 head 指针直接指向原来的第二个节点（head.next）
+            this.head = this.head.next;
+            this.length--;  // 更新链表长度
+            return true;    // 删除成功
+        }
+    
+        // ✅ 定义 current 指针，从头节点开始遍历链表
+        let current = this.head;
+    
+        // ✅ 开始遍历链表，直到 current.next 为空
+        // ⚠️ 为什么是 current.next？因为我们要检查下一个节点的值，
+        // 如果匹配，就能让 current 直接“跳过”它
+        while (current.next) {
+            // 如果找到了要删除的节点（current.next.value === value）
+            if (current.next.value === value) {
+                // ✅ 删除的核心逻辑：
+                // 让 current.next 指向 current.next.next
+                // 相当于跳过中间这个匹配的节点，把它“踢出链表”
+                current.next = current.next.next;
+    
+                // 更新链表长度
+                this.length--;
+    
+                // 删除成功
+                return true;
+            }
+    
+            // 向后移动 current 指针，继续遍历
+            current = current.next;
+        }
+    
+        // ✅ 如果走完整个链表都没有找到匹配的值，就返回 false
+        return false;
+    }
+    
+    
     
 
     // 获取链表长度
@@ -179,6 +224,8 @@ list.update(1, 'x'); // a -> x -> b
 list.print();
 
 list.remove(0); // x -> b
+
+list.removeByValue('x');
 list.print();
 
 console.log('长度:', list.getLength()); // 2
