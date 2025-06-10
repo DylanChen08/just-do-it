@@ -55,3 +55,31 @@ const kthToLast = function (head, k) {
     // 此时slow指向倒数第k个节点，返回该节点的值
     return slow.val;
 }
+
+
+// 测试用例
+
+// 构建链表：a -> b -> c -> d -> e
+class ListNode {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+const a = new ListNode('a');
+const b = new ListNode('b');
+const c = new ListNode('c');
+const d = new ListNode('d');
+const e = new ListNode('e');
+a.next = b;
+b.next = c;
+c.next = d;
+d.next = e;
+
+// 测试
+console.log(kthToLast(a, 1)); // e
+console.log(kthToLast(a, 2)); // d
+console.log(kthToLast(a, 3)); // c
+console.log(kthToLast(a, 4)); // b
+console.log(kthToLast(a, 5)); // a
