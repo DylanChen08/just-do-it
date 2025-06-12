@@ -1,3 +1,5 @@
+// https://leetcode.cn/problems/merge-two-sorted-lists/
+
 const mergeTwoLists = function(l1, l2) {
     // 创建一个虚拟头节点 dummy，它不是真正的链表数据，只是为了简化拼接逻辑
     // 例如我们不需要特判“第一个节点是谁”
