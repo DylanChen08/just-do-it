@@ -5,7 +5,7 @@
 // 相关企业
 // 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
 
- 
+
 
 // 示例 1：
 
@@ -20,7 +20,7 @@
 
 // 输入：l1 = [], l2 = [0]
 // 输出：[0]
- 
+
 
 // 提示：
 
@@ -32,7 +32,7 @@
 
 // https://leetcode.cn/problems/merge-two-sorted-lists/
 
-const mergeTwoLists = function(l1, l2) {
+const mergeTwoLists = function (l1, l2) {
     // 创建一个虚拟头节点 dummy，它不是真正的链表数据，只是为了简化拼接逻辑
     // 例如我们不需要特判“第一个节点是谁”
     let dummy = new ListNode(-1);
