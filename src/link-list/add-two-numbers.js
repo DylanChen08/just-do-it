@@ -32,42 +32,46 @@
 
 
 const addTwoNumbers = function(l1, l2) {
-    // 虚拟头节点，方便返回结果链表的头
+    // 创建一个虚拟头节点 dummy，方便统一处理头节点逻辑
+    // 最后我们返回 dummy.next 作为最终结果的头节点
     let dummy = new ListNode(-1);
-    let current = dummy;
+    let current = dummy; // current 用来构建结果链表
 
-    // 初始化进位 carry
+    // carry 表示每一位相加后的进位值，初始为 0
     let carry = 0;
 
-    // 遍历两个链表，直到两个都为空
+    // 遍历两个链表，只要还有未处理的节点就继续
     while (l1 !== null || l2 !== null) {
-        // 如果当前链表为空，则值设为 0
+        // 如果某个链表已经到头，就把对应的值设为 0
         let val1 = l1 !== null ? l1.val : 0;
         let val2 = l2 !== null ? l2.val : 0;
 
-        // 加上进位
+        // 把两个节点的值以及上一次的进位值加在一起
         let sum = val1 + val2 + carry;
 
-        // 当前位的值：对10取模
+        // digit 是当前位的结果值 —— 只能保留个位数（因为每个节点只能存 0~9）
         let digit = sum % 10;
 
-        // 更新进位
+        // 更新进位：如果 sum >= 10，就产生进位（否则 carry = 0）
         carry = Math.floor(sum / 10);
 
-        // 创建新节点连接到结果链表
+        // 把当前计算出来的 digit 存入结果链表中
         current.next = new ListNode(digit);
+
+        // current 指针向后移动一位，继续构建下一位
         current = current.next;
 
-        // 向后移动两个链表指针
+        // 分别将 l1 和 l2 向后移动一位（如果它们还有节点）
         if (l1 !== null) l1 = l1.next;
         if (l2 !== null) l2 = l2.next;
     }
 
-    // 最后还有进位要处理（比如 9+1=10）
+    // 处理最后可能存在的进位（例如 9 + 1 = 10，最后要补 1）
     if (carry > 0) {
         current.next = new ListNode(carry);
     }
 
-    // 返回真正的头节点（跳过 dummy）
+    // dummy 是虚拟头节点，dummy.next 才是真正的结果头节点
     return dummy.next;
 };
+
