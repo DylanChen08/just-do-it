@@ -28,5 +28,6 @@ const deleteDuplicates = function(head) {
     }
 
     // 返回处理后的链表头
+    
     return head;
 };
