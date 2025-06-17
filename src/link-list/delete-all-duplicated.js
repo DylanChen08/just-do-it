@@ -44,16 +44,20 @@ const deleteDuplicates = function (head) {
 
             // ⛳️ 易错点 ❶：这段循环是“跳过所有值等于 duplicateVal 的节点”
             // current 最终将停在第一个不等于 duplicateVal 的节点
+            // ⚠️ 一定记得在循环条件中加 current !== null，避免空指针报错
             while (current !== null && current.val === duplicateVal) {
                 current = current.next; 
             }
 
             // ✅ 易错点 ❷：千万不要写 prev = current!
-            // 正确做法是：跳过中间那段重复的节点，连接不重复的部分
+            // ❌ prev = current 只是移动指针，没有真正“删除节点”
+            // ✅ 正确做法是：跳过中间那段重复的节点，连接不重复的部分
+            // ❗ prev.next 是链表操作真正的“删除动作” —— 把重复区段全部跳过
             prev.next = current;
 
         } else {
             // ✅ 如果当前节点不是重复的，prev 和 current 同时往前走
+            // ✅ 易错点 ❸：不要只移动 current 而不动 prev，会导致链表断开
             prev = prev.next;
             current = current.next;
         }
@@ -62,3 +66,4 @@ const deleteDuplicates = function (head) {
     // ✅ 返回 dummy.next（真正的头节点）
     return dummy.next;
 };
+
