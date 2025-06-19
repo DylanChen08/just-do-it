@@ -35,6 +35,19 @@ premium lock icon
 
 // https://leetcode.cn/problems/reverse-linked-list-ii/description/
 
+
+//   1 → 2 → 3 → 4 → 5  // 初始
+// → 1 → 3 → 2 → 4 → 5 // 第一次循环
+// → 1 → 4 → 3 → 2 → 5 // 第二次循环（完成）
+
+
+
+// ✅ 精确地说：
+// • 你不直接移动 left 节点
+// • 而是 以 left 节点（即 curr）为锚点，
+// 把它后面的节点 一个一个抠出来，用头插法插到 prev（即 left 前一个节点）后面。
+// • 每次移动的节点，是 curr.next，而 curr 一直原地不动！
+
 const reverseBetween = function(head, left, right) {
     if (!head || left === right) return head;
 
@@ -48,7 +61,7 @@ const reverseBetween = function(head, left, right) {
     }
 
     // 2. 从 left 开始，原地反转 right-left+1 个节点
-    let curr = prev.next;
+    let curr = prev.next;    
     let next = null;
 
     for (let i = 0; i < right - left; i++) {
@@ -60,3 +73,10 @@ const reverseBetween = function(head, left, right) {
 
     return dummy.next;
 };
+
+
+// 也就是说我们只需要找到left 和right 节点， 然后以left为基准，把left和right之间的数 包括 right ，运用头插法，全部抛到left前面，至此就完成了反转
+
+
+
+
