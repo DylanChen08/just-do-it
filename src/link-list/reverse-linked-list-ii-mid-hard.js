@@ -48,7 +48,7 @@ premium lock icon
 // 把它后面的节点 一个一个抠出来，用头插法插到 prev（即 left 前一个节点）后面。
 // • 每次移动的节点，是 curr.next，而 curr 一直原地不动！
 
-const reverseBetween = function(head, left, right) {
+const reverseBetween = function (head, left, right) {
     if (!head || left === right) return head;
 
     // 虚拟头结点，简化头部操作
@@ -61,7 +61,7 @@ const reverseBetween = function(head, left, right) {
     }
 
     // 2. 从 left 开始，原地反转 right-left+1 个节点
-    let curr = prev.next;    
+    let curr = prev.next;
     let next = null;
 
     for (let i = 0; i < right - left; i++) {
@@ -75,7 +75,12 @@ const reverseBetween = function(head, left, right) {
 };
 
 
-// 也就是说我们只需要找到left 和right 节点， 然后以left为基准，把left和right之间的数 包括 right ，运用头插法，全部抛到left前面，至此就完成了反转
+// 也就是说 这个for循环是为了找到left节点的前一个 ，我们把它称之为prev ，是为了方便后面的操作；然后稍后我们会把left节点称之为固定不变的current节点  => 对应第1点 
+
+
+// 也就是说我们只需要找到left 和right 节点， 然后以left为基准，把left和right之间的数 包括 right ，运用头插法，全部抛到left前面，至此就完成了反转  => 对应第2点
+
+
 
 
 
