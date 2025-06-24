@@ -38,6 +38,16 @@ const reorderList = function(head) {
     let first = head;
     let second = prev;
     while (second) {
+        // | 行号                       | 作用                          |
+        // | ------------------------ | --------------------------- |
+        // | `let tmp1 = first.next`  | 保存 `first` 后面的位置（即下一轮合并的起点） |
+        // | `let tmp2 = second.next` | 保存 `second` 后面的位置，防止链丢失     |
+        // | `first.next = second`    | 把当前 second 插到当前 first 后面    |
+        // | `second.next = tmp1`     | 把 second 和原 first 的下一个重新连上  |
+        // | `first = tmp1`           | first 往前走一步                 |
+        // | `second = tmp2`          | second 往前走一步                |
+        
+
         let tmp1 = first.next;
         let tmp2 = second.next;
 
