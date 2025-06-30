@@ -48,8 +48,8 @@ const rotateRight = (head, k) => {
 
     // 4. 新的头和断链操作
     let newHead = newTail.next;
-    newTail.next = null;
-    tail.next = head;
+    newTail.next = null;   // 断链，防止循环
+    tail.next = head;      // 拼接
 
     return newHead;
 }
