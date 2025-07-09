@@ -39,12 +39,14 @@ const fib = (n) => {
     const MOD = 1e9 + 7;
     if (n < 2) return n;
   
+    // ✅ 创建一个长度为 n + 1 的数组 result，并初始化前两个斐波那契值 F(0) = 0、F(1) = 1，其余位置用 null 占位。
     const result = Array.from({ length: n + 1 }, (_, i) => {
       if (i === 0) return 0;
       if (i === 1) return 1;
       return null; // 占位
     });
-  
+
+    // 从 i = 2 开始，一直到 i = n，依次填充斐波那契数组 result[i] = F(i)。
     for (const i of [...Array(n - 1).keys()].map(i => i + 2)) {
       result[i] = (result[i - 1] + result[i - 2]) % MOD;
     }
