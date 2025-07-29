@@ -25,7 +25,7 @@ premium lock icon
 
 A 中盘子的数目不大于 14 个。 */
 
-
+// https://leetcode.cn/problems/hanota-lcci/
 
 const hanota = function (A, B, C) {
     function move(n, source, buffer, target) {
