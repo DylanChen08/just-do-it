@@ -17,8 +17,8 @@ const preorderTraversal = function (root) {
     while (stack.length) {
         const node = stack.pop();
         result.push(node.val);
-
-        if (node.right) stack.push(node.right); // 注意先右后左，栈是LIFO
+        
+        if (node.right) stack.push(node.right); // 注意先右后左，栈是LIFO(先进后出、后进先出)
         if (node.left) stack.push(node.left);
     }
 
