@@ -6,6 +6,7 @@
 // 
 // 进阶：递归算法很简单，你可以通过迭代算法完成吗？
 
+// 后序遍历的顺序是：左 → 右 → 根
 
 // https://leetcode.cn/problems/binary-tree-postorder-traversal/
 
