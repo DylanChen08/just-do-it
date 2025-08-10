@@ -42,6 +42,12 @@
 
 // https://leetcode.cn/problems/insert-into-a-binary-search-tree/description/
 
+
+
+// 从根节点开始，小的往左走，大的往右走；
+// 如果那个方向有空位，就插入；
+// 如果没空位，就继续沿着那个方向走下去，重复比较，直到找到空位为止
+
 const insertIntoBST = function(root, val) {
     if (root === null) {
         return new TreeNode(val);
@@ -49,6 +55,7 @@ const insertIntoBST = function(root, val) {
 
     let cur = root;
     while (cur) {
+        // 如果val小于cur.val，则插入到cur的左子树
         if (val < cur.val) {
             if (cur.left === null) {
                 cur.left = new TreeNode(val);
@@ -57,6 +64,7 @@ const insertIntoBST = function(root, val) {
                 cur = cur.left;
             }
         } else {
+            // 如果val大于cur.val，则插入到cur的右子树
             if (cur.right === null) {
                 cur.right = new TreeNode(val);
                 break;
