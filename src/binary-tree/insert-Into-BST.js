@@ -53,23 +53,23 @@ const insertIntoBST = function(root, val) {
         return new TreeNode(val);
     }
 
-    let cur = root;
-    while (cur) {
+    let current = root;
+    while (current) {
         // 如果val小于cur.val，则插入到cur的左子树
-        if (val < cur.val) {
-            if (cur.left === null) {
-                cur.left = new TreeNode(val);
+        if (val < current.val) {
+            if (current.left === null) {
+                current.left = new TreeNode(val);
                 break;
             } else {
-                cur = cur.left;
+                current = current.left;
             }
         } else {
             // 如果val大于cur.val，则插入到cur的右子树
-            if (cur.right === null) {
-                cur.right = new TreeNode(val);
+            if (current.right === null) {
+                current.right = new TreeNode(val);
                 break;
             } else {
-                cur = cur.right;
+                current = current.right;
             }
         }
     }
