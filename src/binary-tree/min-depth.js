@@ -41,7 +41,7 @@ premium lock icon
 
 
 
-var minDepth = function(root) {
+const minDepth = function(root) {
     if (!root) return 0; // 空树深度为0
 
     let queue = [root];
@@ -67,7 +67,7 @@ var minDepth = function(root) {
 
 
 
-var minDepth2 = function(root) {
+const minDepth2 = function(root) {
     if (!root) return 0;
     if (!root.left && !root.right) return 1;
 
