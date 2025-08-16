@@ -32,4 +32,53 @@
 
 
 
+// 递归解法
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function(root) {
+    if (!root) return null;
+
+    // 交换左右子树
+    [root.left, root.right] = [root.right, root.left];
+
+    // 递归翻转左右子树
+    invertTree(root.left);
+    invertTree(root.right);
+
+    return root;
+};
+
+
+
+
 // https://leetcode.cn/problems/invert-binary-tree/description/
+
+// 迭代版本（BFS），这样不会用递归栈：
+
+const invertTree = function(root) {
+    if (!root) return null;
+
+    let queue = [root];
+    while (queue.length > 0) {
+        let node = queue.shift();
+        [node.left, node.right] = [node.right, node.left];
+        if (node.left) queue.push(node.left);
+        if (node.right) queue.push(node.right);
+    }
+    return root;
+};
+
+
+
