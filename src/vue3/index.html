@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue3 reactive + effect 极简 Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 640px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 1.25rem;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    #log {
+      background: #0f0f1a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: ui-monospace, monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 200px;
+    }
+    .live-demo {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      background: #0f0f1a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+    }
+    .live-demo h2 {
+      font-size: 1rem;
+      color: #a78bfa;
+      margin: 0 0 0.75rem 0;
+    }
+    .live-demo label {
+      display: block;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+    }
+    .live-demo input[type="text"] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      background: #1a1a2e;
+      color: #eee;
+      margin-bottom: 0.75rem;
+    }
+    .live-demo input[type="text"]:focus {
+      outline: none;
+      border-color: #a78bfa;
+    }
+    .live-demo .display {
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: #c4b5fd;
+      min-height: 1.5em;
+      word-break: break-all;
+    }
+    .live-demo .display.empty {
+      color: #64748b;
+    }
+    .live-demo button {
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+      background: #334155;
+      color: #e2e8f0;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .live-demo button:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vue3 reactive + effect 极简 Demo</h1>
+  <p>下面为 demo 运行时的 console 输出（同步到页面）：</p>
+  <pre id="log"></pre>
+
+  <section class="live-demo" aria-label="实时输入 Demo">
+    <h2>实时输入 Demo（像 Vue 那样边改边展示）</h2>
+    <label for="live-input">输入框：</label>
+    <input type="text" id="live-input" placeholder="输入任意内容，下方会实时更新" />
+    <p class="display empty" id="live-display">当前内容：（空）</p>
+    <button type="button" id="live-clear">清空</button>
+  </section>
+
+  <script>
+    // 把 console.log 同时输出到页面，便于在浏览器里直接看到效果
+    const logEl = document.getElementById('log');
+    const nativeLog = console.log;
+    console.log = function (...args) {
+      nativeLog.apply(console, args);
+      const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+      logEl.textContent += line + '\n';
+    };
+  </script>
+  <script type="module" src="./demo.js"></script>
+</body>
+</html>

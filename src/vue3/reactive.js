@@ -114,10 +114,5 @@ function reactive(target) {
   });
 }
 
-// 导出供 demo 使用
-module.exports = {
-  reactive,
-  effect,
-  track,
-  trigger,
-};
+// 导出供 demo 使用（ES Module，浏览器可用）
+export { reactive, effect, track, trigger };
