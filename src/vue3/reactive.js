@@ -64,28 +64,36 @@ function trigger(target, key) {
 // ============ 2. effect ============
 /**
  * effect(fn)：注册一个副作用函数
- * - 执行 fn 时会把 activeEffect 设为当前 effect，这样 fn 里访问的响应式属性都会 track 到当前 effect
- * - 返回一个 runner，可以手动再执行
+ * - 先执行一次 fn，执行过程中 fn 里用到的响应式属性会把「当前 effect」记下来（依赖收集）
+ * - 返回一个 runner 函数，之后可以手动再执行一次这个 fn
  */
 function effect(fn) {
   const _effect = new ReactiveEffect(fn);
-  _effect.run();
-  const runner = _effect.run.bind(_effect);
-  runner.effect = _effect;
+  _effect.run(); // 先执行一次，顺便完成依赖收集
+
+  // 下面两行：造一个「可以随时再执行一次」的函数，并保证执行时 this 不错乱
+  // 把 run 绑死到 _effect 上，这样以后 runner() 调用时 this 还是 _effect
+  const runner = _effect.run.bind(_effect); 
+  // 在 runner 上挂上对应的 effect 实例，方便以后做 stop(runner) 等（从 runner 找到 effect）
+  runner.effect = _effect; 
+
   return runner;
 }
 
+/**
+ * 一个 effect 的「包装」：存着用户传入的 fn，run() 时先设 activeEffect 再执行 fn，方便 track 时知道要收集谁
+ */
 class ReactiveEffect {
   constructor(fn) {
     this.fn = fn;
   }
 
   run() {
-    activeEffect = this;
+    activeEffect = this; // 标记：当前正在执行的是我这个 effect，track 时就收集我
     try {
       return this.fn();
     } finally {
-      activeEffect = null;
+      activeEffect = null; // 执行完就清掉，避免收集错
     }
   }
 }
