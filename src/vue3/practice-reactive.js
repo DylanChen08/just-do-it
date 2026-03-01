@@ -38,7 +38,20 @@ function track(target,key){
     dep = new Set()
     depsMap.set(key,dep)
   }
-  dep.add(activeEffect)
+   dep.add(activeEffect)
 }
 
-function trigger(target,key,value){}
+function trigger(target,key,value){
+
+  const depsMap = bucket.get(target)
+
+  if(!depsMap) return;
+
+  const dep = depsMap.get(key)
+  if(!dep) return;
+
+  dep.forEach(element => {
+    element.run()
+  });
+
+}
