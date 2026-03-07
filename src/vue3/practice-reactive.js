@@ -7,21 +7,6 @@ function effect(fn) {
 }
 
 
-function reactive(obj) {
-  return new Proxy(obj, {
-    get(target, key) {
-      console.log("get")
-      return target[key]
-    },
-    set(target, key, value) {
-      console.log(set)
-      target[key] = value
-      return true
-
-    },
-  })
-}
-
 const bucket = new WeakMap()
 
 function track(target, key) {
@@ -60,7 +45,25 @@ function trigger(target, key, value) {
   });
 
   effectToRun.forEach(element => {
-    element.run()
+    element()
   });
 
+}
+
+function reactive(obj){
+  return new Proxy(obj,{
+    get(target,key,receiver){
+       track(target,key)
+       return Reflect.get(target,key,receiver)
+    },
+    set(target,key,newValue,receiver){
+      const oldValue = target[key]
+      const result = Reflect.set(target,key,newValue,receiver)
+      if(oldValue!==newValue){
+        trigger(target,key)
+      }
+
+      return result
+    }
+  })
 }
