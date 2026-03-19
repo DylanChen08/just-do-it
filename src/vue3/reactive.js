@@ -101,7 +101,10 @@ class ReactiveEffect {
 // ============ 3. reactive（Proxy） ============
 /**
  * reactive(obj)：把对象变成响应式
- * 用 Proxy 拦截 get/set，在 get 时 track，在 set 时 trigger
+ * 用 Proxy 拦截 get/set/has：
+ * - get 时 track
+ * - set 时 trigger
+ * - has（in 操作符）时 track
  */
 function reactive(target) {
   return new Proxy(target, {
@@ -118,6 +121,11 @@ function reactive(target) {
         trigger(target, key);
       }
       return result;
+    },
+    has(target, key) {
+      // `key in obj` 也要进行依赖收集
+      track(target, key);
+      return Reflect.has(target, key);
     },
   });
 }
